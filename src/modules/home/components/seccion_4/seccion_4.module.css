@@ -1,0 +1,66 @@
+.seccion_3 {
+  background-color: rgb(1, 1, 86);
+  background-image: linear-gradient(90deg, rgb(1, 1, 86) 63%, rgb(64, 72, 146) 100%);
+  color: white;
+  width: 100%;
+  min-height: 80vh; /* altura mínima para mantener la sección */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 70px; /* espacio interno para no pegar las imágenes al borde */
+  box-sizing: border-box;
+  overflow: hidden; /* evita que las imágenes salgan de la sección */
+  text-align: center;
+  
+}
+
+.seccion_3 .paraLetra{
+  font-family: Sora, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+.imgPruebacss3 {
+  display: flex;
+  flex-wrap: wrap; /* permite que las imágenes bajen a la siguiente línea en pantallas pequeñas */
+  gap: 15px; /* separación entre imágenes */
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.imgContainer {
+  background: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 135px;
+  width: 12vw;   /* ancho relativo a la pantalla, para ser responsive */
+  max-width: 150px; /* no se haga demasiado grande */
+  min-width: 90px;  /* no se haga demasiado pequeño */
+  height: 7vw;   /* altura proporcional al ancho de la pantalla */
+  max-height: 90px;
+  min-height: 60px;
+  box-sizing: border-box;
+}
+
+.imgContainer img {
+@media (min-width: 1024px) {
+    .iRICWT {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (min-width: 768px) {
+    .iRICWT {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+    }
+}
+@media (min-width: 380px) {
+    .iRICWT {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+}
+}

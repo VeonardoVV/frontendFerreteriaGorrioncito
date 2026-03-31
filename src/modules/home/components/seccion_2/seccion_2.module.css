@@ -1,0 +1,34 @@
+.seccion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px; /* en vez de height */
+  text-align: center;
+  margin-top: 10px;  /* separación de 10px arriba */
+  padding-top: 10px; /* opcional: espacio interno extra */
+  font-family: Sora, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  color: rgb(3, 8, 82);
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+.seccion .imgPruebacss img {
+    width: 265px;   /* ancho deseado */
+    height: 265px;  /* alto deseado */
+    object-fit: contain; /* mantiene proporción, no corta */
+    margin-left: 10px;
+    border-radius: 10px;
+    background-color: #f0f0f0; /* opcional, relleno si la imagen no llena el cuadro */
+    border-radius: 60px;
+    
+}
+.seccion .imgPruebacss {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}

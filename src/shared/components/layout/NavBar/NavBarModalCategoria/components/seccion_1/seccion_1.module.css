@@ -1,0 +1,21 @@
+.categorias{
+  background-color: rgb(255, 246, 246);
+  padding-left: 10px;
+  padding-right: 10px;
+  
+}
+
+.categorias h3{
+  color : rgb(3, 8, 82);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.contenido{
+  color: rgb(3, 8, 82);
+  text-align: left;
+  max-height: 300px;   /* límite de altura */
+  overflow-y: auto;    /* activa scroll vertical */
+  padding-right: 10px; /* espacio para el scroll */
+}

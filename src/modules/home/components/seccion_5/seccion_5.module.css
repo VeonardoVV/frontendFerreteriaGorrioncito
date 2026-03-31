@@ -1,0 +1,93 @@
+
+/* Contenedor principal */
+.seccion4 {
+    height: 80vh;
+    position: relative;
+    overflow: hidden;
+    padding: 90px 0px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    gap: 36px;
+
+
+  
+}
+
+.seccion4 h2 {
+    box-sizing: border-box;
+    font-family: Sora, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+        text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: rgb(0, 13, 109);
+    margin: 0px;
+    opacity: 1;
+    transform: scale(1.1);
+    transition: 0.8s;
+
+}
+
+.construye4 {
+  color: rgb(247, 147, 30);
+  font-weight: bold;
+}
+.carrusel4 img,
+.carrusel4_2 img {
+  width: 100px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 12px;
+}
+/* -------------------------- */
+.imgPruebacss4 {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carrusel4 {
+  display: flex;
+  gap: 1.3rem;
+  animation: moverIzquierda 10s linear infinite;
+}
+
+@keyframes moverIzquierda {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+/* ----------------- */
+.imgPruebacss4_2 {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carrusel4_2 {
+  display: flex;
+  gap: 1.3rem;
+  animation: moverDerecha 10s linear infinite;
+}
+
+@keyframes moverDerecha {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}

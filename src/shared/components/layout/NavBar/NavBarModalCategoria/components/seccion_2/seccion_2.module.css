@@ -1,0 +1,35 @@
+.marcas{
+  background-color: rgb(184, 238, 152);
+  padding-left: 10px;
+  padding-right: 10px;
+  
+}
+
+.marcas .barra{
+  text-align:left;
+  color: rgb(3, 8, 82);
+  width:100%;
+
+}
+
+.marcas h3{
+  color : rgb(3, 8, 82);
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.contenido{
+  color: rgb(3, 8, 82);
+  text-align: left;
+  max-height: 300px;   /* límite de altura */
+  overflow-y: auto;    /* activa scroll vertical */
+  padding-right: 180px; /* espacio para el scroll */
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  column-gap: 100px;
+}
+
+.bloque p{
+  font-weight: bold;  
+}
+

@@ -1,0 +1,25 @@
+.container {
+  position: absolute;
+  top: 80%;
+  left: 140px; 
+  background: rgb(150, 150, 150);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.15);
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;   /* 👈 IMPORTANTE */
+  gap: 20px;
+}
+
+.contenidoPrincipal {
+  display: flex;  
+  flex-direction: row;   /* 👈 Secciones al costado */
+  gap: 40px;
+}
+
+.barraAbajo {
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+}
