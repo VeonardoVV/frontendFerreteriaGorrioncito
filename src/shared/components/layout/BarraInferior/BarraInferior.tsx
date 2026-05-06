@@ -1,52 +1,127 @@
-// import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import style from "./BarraInferior.module.css";
-import logo from "../../../../assets/img/logo_gorrion.png";
+import { DEFAULT_LOGO_IMAGE } from "../../../utils/catalogImage";
 
+const productos = [
+  "ALAMBRE N16",
+  "ABRAZADERA 2 A 3/4 INRELY",
+  "ARANDELA",
+  "ACCESORIOS",
+  "ADAPTADOR HDPE 3/4",
+];
+
+const whatsappNumber = "51915144663";
+const whatsappMessage = "Hola, quiero solicitar una cotizacion.";
+const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+const facebookUrl = "https://www.facebook.com/Distribuidoraferregorrioncito/";
+const tiktokUrl = "https://www.tiktok.com/@ferreteriagorrioncito0";
 const BarraInferior = () => {
+  const [logoUrl, setLogoUrl] = useState(DEFAULT_LOGO_IMAGE);
+
+  useEffect(() => {
+    setLogoUrl(DEFAULT_LOGO_IMAGE);
+  }, []);
 
   return (
-    <div className={style.footerCss}>
-      <div className={style.primero}>
-        <div className={style.uno}>
-          <div className={style.contenedorLogo}>
-            <img src={logo} alt="Logo de la empresa" />
+    <footer className={style.footer}>
+      <div className={style.superior}>
+        <div className={style.columnaMarca}>
+          <div className={style.logoWrap}>
+            <img src={logoUrl} alt="Logo Gorrioncito" className={style.logo} />
           </div>
-          <div className={style.unoTexto}>
-            <span>Somos el marketplace B2B de la construcción en Perú</span>
-            <span>Razón Social: ENDUSTRIA S.A.C.</span>
-            <span>RUC: 20605100920</span>
-          </div>        
+
+          <div className={style.datosEmpresa}>
+            <p><strong>Razon Social:</strong></p>
+            <p>DISTRIBUIDORA FERRETERA GORRIONCITO E.I.R.L.</p>
+            <p><strong>RUC:</strong> 20602960227</p>
+            <p><strong>Tipo de Empresa:</strong></p>
+            <p>Empresa Individual de Responsabilidad Limitada</p>
+          </div>
         </div>
 
-        <div className={style.dos}>
-          <h2>Servicio al cliente</h2>
-          <span>Políticas de privacidad</span>
-          <span>Términos y Condiciones</span>
-          <span>Libro de Reclamaciones</span>
+        <div className={style.columna}>
+          <h3 className={style.titulo}>Nuestros productos</h3>
+          <ul className={style.lista}>
+            {productos.map((producto) => (
+              <li key={producto}>{producto}</li>
+            ))}
+          </ul>
         </div>
-        
-        <div className={style.tres}>
-          <h2>Contáctanos</h2>
-          <span>Teléfono: +51 986 601 647</span>
-          <span>Email: ventas@equipconstruye.com</span>
-        </div>
-      </div> 
 
-      <div className={style.redesSociales}>
-        <svg width="40" height="40" viewBox="0 0 1024 1024">
-          <path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-92.4 233.5h-63.9c-50.1 0-59.8 23.8-59.8 58.8v77.1h119.6l-15.6 120.7h-104V912H539.2V602.2H434.9V481.4h104.3v-89c0-103.3 63.1-159.6 155.3-159.6 44.2 0 82.1 3.3 93.2 4.8v107.9z" />
-        </svg>
-        <svg width="40" height="40" viewBox="0 0 1024 1024">
-          <path d="M512 378.7c-73.4 0-133.3 59.9-133.3 133.3S438.6 645.3 512 645.3 645.3 585.4 645.3 512 585.4 378.7 512 378.7zM911.8 512c0-55.2.5-109.9-2.6-165-3.1-64-17.7-120.8-64.5-167.6-46.9-46.9-103.6-61.4-167.6-64.5-55.2-3.1-109.9-2.6-165-2.6-55.2 0-109.9-.5-165 2.6-64 3.1-120.8 17.7-167.6 64.5C132.6 226.3 118.1 283 115 347c-3.1 55.2-2.6 109.9-2.6 165s-.5 109.9 2.6 165c3.1 64 17.7 120.8 64.5 167.6 46.9 46.9 103.6 61.4 167.6 64.5 55.2 3.1 109.9 2.6 165 2.6 55.2 0 109.9.5 165-2.6 64-3.1 120.8-17.7 167.6-64.5 46.9-46.9 61.4-103.6 64.5-167.6 3.2-55.1 2.6-109.8 2.6-165zM512 717.1c-113.5 0-205.1-91.6-205.1-205.1S398.5 306.9 512 306.9 717.1 398.5 717.1 512 625.5 717.1 512 717.1zm213.5-370.7c-26.5 0-47.9-21.4-47.9-47.9s21.4-47.9 47.9-47.9 47.9 21.4 47.9 47.9a47.84 47.84 0 01-47.9 47.9z"/>
-        </svg>
-        <svg width="40" height="40" viewBox="0 0 1024 1024">
-          <path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM349.3 793.7H230.6V411.9h118.7v381.8zm-59.3-434a68.8 68.8 0 1168.8-68.8c-.1 38-30.9 68.8-68.8 68.8zm503.7 434H675.1V608c0-44.3-.8-101.2-61.7-101.2-61.7 0-71.2 48.2-71.2 98v188.9H423.7V411.9h113.8v52.2h1.6c15.8-30 54.5-61.7 112.3-61.7 120.2 0 142.3 79.1 142.3 181.9v209.4z" />
-        </svg>
+        <div className={style.columna}>
+          <h3 className={style.titulo}>Enlaces rapidos</h3>
+          <ul className={style.lista}>
+            <li>Nosotros</li>
+          </ul>
+        </div>
+
+        <div className={style.columna}>
+          <h3 className={style.titulo}>Contactos</h3>
+          <div className={style.contactos}>
+            <p>+51 915 144 663</p>
+            <p>distribuidoraferrorgorrioncito@gmail.com</p>
+          </div>
+
+          <div className={style.iconos}>
+            <a
+              href={facebookUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={`${style.icono} ${style.iconoFacebook} ${style.iconoLink}`}
+              aria-label="Visitar Facebook"
+            >
+              F
+            </a>
+            <a
+              href={tiktokUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={`${style.icono} ${style.iconoTikTok} ${style.iconoLink}`}
+              aria-label="Visitar TikTok"
+            >
+              T
+            </a>
+            <a
+              href={facebookUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={`${style.icono} ${style.iconoMessenger} ${style.iconoLink}`}
+              aria-label="Contactar por Messenger"
+            >
+              M
+            </a>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={`${style.icono} ${style.iconoWhatsapp} ${style.iconoLink}`}
+              aria-label="Contactar por WhatsApp"
+            >
+              WA
+            </a>
+          </div>
+        </div>
       </div>
 
-      <p>© EquipConstruye | Todos los Derechos Reservados.</p>
-      <p>AV. REPÚBLICA DE PANAMÁ NRO. 3505 San Isidro - Lima - Lima, Perú</p>
-    </div>
+      <div className={style.inferior}>
+        <p>&copy; 2026 Gorrioncito. Todos los derechos reservados.</p>
+        <p>Av. Primero de Noviembre Mza. a Lote, 06 Sec. Quinta Aurora</p>
+      </div>
+
+      <div className={style.politica}>
+        <h3 className={style.politicaTitulo}>Politica de privacidad</h3>
+        <p>
+          Este sitio no tiene registro ni inicio de sesion y no recopila datos
+          personales directamente desde la web.
+        </p>
+        <p>
+          Las cotizaciones se gestionan por WhatsApp; cualquier informacion
+          enviada por el usuario se comparte de forma voluntaria y se utiliza
+          solo para atender consultas o solicitudes. El uso de WhatsApp esta
+          sujeto a sus propias politicas de privacidad.
+        </p>
+      </div>
+    </footer>
   );
 };
 

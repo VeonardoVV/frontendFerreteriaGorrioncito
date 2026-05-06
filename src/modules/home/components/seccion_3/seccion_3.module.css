@@ -1,56 +1,234 @@
-/* Contenedor principal */
-.seccion2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-top: 10px;
-  gap: 15px;  
-  font-family: Sora, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  color: rgb(3, 8, 82);
-    text-align: center;
-    margin-bottom: 8px;
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.seccion2 p {
-  font-size: 18px;
-}
-
-.construye {
-  color: rgb(247, 147, 30);
-  font-weight: bold;
-}
-
-/* Estilos del contenedor del carrusel */
-.imgPruebacss {
+.seccion {
   width: 100%;
-  overflow: hidden; /* Oculta lo que se sale del contenedor */
+  padding: 18px 0 30px;
+  background:
+    radial-gradient(circle at top center, rgba(73, 95, 214, 0.08), transparent 32%),
+    linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
+  font-family: Sora, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.encabezado {
+  max-width: 760px;
+  margin: 0 auto 20px;
+  text-align: center;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(47, 60, 201, 0.08);
+  color: #3347c7;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.titulo {
+  margin: 12px 0 10px;
+  text-align: center;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  font-weight: 800;
+  color: #2f3cc9;
+}
+
+.descripcion {
+  margin: 0;
+  color: #68728f;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.carruselMarco {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 42px;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 14px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 20px 46px rgba(28, 39, 95, 0.1);
+  border: 1px solid rgba(87, 102, 180, 0.1);
+}
+
+.viewport {
+  overflow: hidden;
   position: relative;
+  min-height: 92px;
 }
 
-/* Contenedor de las imágenes */
-.carrusel {
+.pista {
   display: flex;
-  gap: 1.3rem; /* separación entre imágenes */
-  animation: moverIzquierda 10s linear infinite; /* Animación continua */
+  align-items: center;
+  gap: 22px;
+  width: max-content;
+  animation: deslizar 590s linear infinite;
 }
 
-/* Cada imagen */
-.carrusel img {
-  width: 300px;
-  height: 400px;
-  flex-shrink: 0; /* Evita que se encojan */
-  border-radius: 12px;
+.viewport:hover .pista {
+  animation-play-state: paused;
 }
 
-/* Animación para mover las imágenes de derecha a izquierda */
-@keyframes moverIzquierda {
-  0% {
-    transform: translateX(21%); /* Empieza fuera de la pantalla por la derecha */
+.card {
+  width: 168px;
+  height: 88px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 18px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f6f7fb 100%);
+  border: 1px solid rgba(217, 222, 239, 0.92);
+  box-shadow: 0 12px 24px rgba(17, 24, 56, 0.08);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.viewport:hover .card {
+  animation: flotar 1.6s ease-in-out infinite alternate;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  background: #ffffff;
+  border-color: rgba(65, 88, 206, 0.24);
+  box-shadow: 0 18px 30px rgba(23, 34, 85, 0.14);
+}
+
+.imagen {
+  width: 100%;
+  max-width: 132px;
+  max-height: 58px;
+  object-fit: contain;
+  display: block;
+  filter: saturate(1.02);
+}
+
+.placeholder {
+  width: 100%;
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #6d7896;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.vacio {
+  min-height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6d748a;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.flecha {
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffffff 0%, #eef2ff 100%);
+  color: #243585;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.55rem;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 10px 20px rgba(35, 49, 119, 0.14);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.flecha:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow: 0 14px 24px rgba(35, 49, 119, 0.18);
+}
+
+.flechaIzquierda {
+  justify-self: end;
+}
+
+.flechaDerecha {
+  justify-self: start;
+}
+
+@keyframes deslizar {
+  from {
+    transform: translateX(0);
   }
-  100% {
-    transform: translateX(-100%); /* Termina fuera de la pantalla por la izquierda */
+  to {
+    transform: translateX(calc(-50% - 14px));
+  }
+}
+
+@keyframes flotar {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 640px) {
+  .seccion {
+    padding: 14px 0 22px;
+  }
+
+  .encabezado {
+    margin-bottom: 16px;
+  }
+
+  .descripcion {
+    font-size: 0.92rem;
+  }
+
+  .carruselMarco {
+    grid-template-columns: 32px minmax(0, 1fr) 32px;
+    gap: 6px;
+    padding: 12px 8px;
+    border-radius: 22px;
+  }
+
+  .pista {
+    gap: 18px;
+    animation-duration: 145s;
+  }
+
+  .card {
+    width: 136px;
+    height: 72px;
+    padding: 10px 14px;
+  }
+
+  .imagen {
+    max-width: 108px;
+    max-height: 46px;
+  }
+
+  .flecha {
+    width: 32px;
+    height: 32px;
+    font-size: 1.3rem;
   }
 }

@@ -10,6 +10,7 @@ import CarLayout from "../../shared/layouts/CarLayout";
 
 import HomeRoutes from "../../modules/home/routes/HomeRoutes";
 import CartRoutes from "../../modules/cart/routes/CartRoutes";
+import NosotrosRoutes from "../../modules/nosotros/routes/NosotrosRoutes";
 
 import ShopLayout from "../../shared/layouts/ShopLayout";
 import ProductRoutes from "../../modules/product/routes/ProductRoutes";
@@ -31,6 +32,9 @@ export default function AppRoutes() {
                 </Route>
                 <Route element={<SeeProductLayout />}>
                     {CartRoutes}
+                </Route>
+                <Route element={<SeeProductLayout />}>
+                    {NosotrosRoutes}
                 </Route>
                 {/* rutas que estaran dentro del panel administrativo*/}
                 <Route element={<AdminLayout />}>

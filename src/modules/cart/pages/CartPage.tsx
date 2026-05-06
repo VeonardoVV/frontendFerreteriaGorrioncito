@@ -1,21 +1,36 @@
-// import style from "./ProductPage.module.css";
+import { useEffect, useState } from "react";
 import style from "./CartPage.module.css";
-
 import Seccion_1 from "../components/seccion_1/seccion_1";
 
-
-// import Seccion_4 from "../components/seccion_4/seccion_4";
-// import Seccion_5 from "../components/seccion_5/seccion_5";
-// import Seccion_6 from "../components/seccion_6/seccion_6";
-// import Seccion_7 from "../components/seccion_7/seccion_7";
-// import Seccion_8 from "../components/seccion_8/seccion_8";
+const STORAGE_KEY = "cartItems";
 
 export default function ProductPage() {
-    return (
-        <div className={style.contenidoHome}>
-            <p>Carrito de Compra</p>
-            <Seccion_1/>            
-        </div>
-        
-    );
+  const [tieneItems, setTieneItems] = useState(false);
+
+  useEffect(() => {
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (!data) {
+      setTieneItems(false);
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(data);
+      setTieneItems(Array.isArray(parsed) && parsed.length > 0);
+    } catch {
+      setTieneItems(false);
+    }
+  }, []);
+
+  return (
+    <main className={style.contenidoHome}>
+      {tieneItems ? (
+        <header className={style.encabezado}>
+          <h1 className={style.titulo}>Carrito de Compra</h1>
+        </header>
+      ) : null}
+
+      <Seccion_1 />
+    </main>
+  );
 }

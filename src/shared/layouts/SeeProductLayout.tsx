@@ -10,8 +10,7 @@ import { logout } from "../../app/routes/auth"
 import BarraSuperior from "../components/layout/BarraSuperior/BarraSuperior";
 import NavBar from "../components/layout/NavBar/NavBar";
 import BarraInferior from "../components/layout/BarraInferior/BarraInferior";
-/*estilos*/
-// import styles from "../components/layout/Layout.module.css"
+import styles from "./SeeProductLayout.module.css";
 
 
 /* datos para usuario */
@@ -77,14 +76,11 @@ export default function SeeProductLayout() {
 
     return (
         <>
-            <div>
-                
-                
+            <div className={styles.layout}>
                 <NavBar />
-
-
+                <main className={styles.mainContent}>
                     <Menu />
-      
+                </main>
                 <BarraInferior />
             </div>
         </>

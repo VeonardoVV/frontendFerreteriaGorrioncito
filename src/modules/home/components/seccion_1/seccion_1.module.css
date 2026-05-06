@@ -33,6 +33,33 @@ html, body {
   display: block;
 }
 
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top center, rgba(70, 95, 219, 0.16), transparent 32%),
+    linear-gradient(180deg, #eef3ff 0%, #f9fbff 100%);
+  color: #5b6788;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-weight: 800;
+  text-align: center;
+}
+
+.emptyState {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background: #f3f4f6;
+  color: #4b5563;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 /* ------------------------------------ */
 /* Tablet                               */
 /* ------------------------------------ */
@@ -51,7 +78,6 @@ html, body {
 
   .carousel {
     height: calc(100vw / 2.35);
-    margin-top: 100px;
   }
 
 }

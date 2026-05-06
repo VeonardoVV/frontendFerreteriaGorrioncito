@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { supabase } from "../../../../app/services/apiSupabase";
+import { supabase } from "../../../../lib/supabase";
 import styles from "./BarraSuperior.module.css";
 
 export default function BarraSuperior() {

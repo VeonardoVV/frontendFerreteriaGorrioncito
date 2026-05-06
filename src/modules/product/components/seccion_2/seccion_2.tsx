@@ -1,217 +1,103 @@
-import { useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import styles from "./seccion_2.module.css";
+import type { CatalogCategory } from "../catalogData";
 
-export default function CarruselEmpresas() {
+type Props = {
+  categorias: CatalogCategory[];
+  marcas: string[];
+  categoriasSeleccionadas: string[];
+  marcasSeleccionadas: string[];
+  onCategoriaSeleccionada: (categoria: string) => void;
+  onMarcaSeleccionada: (marca: string) => void;
+};
 
-  // CHECK STATES
-  const [checkElectricidad, setCheckElectricidad] = useState(false);
-  const [checkCables, setCheckCables] = useState(false);
-  const [checkCUC1, setCheckCUC1] = useState(false);
-  const [checkCUC2, setCheckCUC2] = useState(false);
+export default function Seccion_2({
+  categorias,
+  marcas,
+  categoriasSeleccionadas,
+  marcasSeleccionadas,
+  onCategoriaSeleccionada,
+  onMarcaSeleccionada,
+}: Props) {
+  const [tabActiva, setTabActiva] = useState<"categorias" | "marcas">("categorias");
+  const [busqueda, setBusqueda] = useState("");
 
-  // OPEN STATES
-  const [openElectricidad, setOpenElectricidad] = useState(true);
-  const [openCables, setOpenCables] = useState(true);
+  const categoriasFiltradas = useMemo(() => {
+    return categorias.filter((item) =>
+      item.nombre.toLowerCase().includes(busqueda.toLowerCase())
+    );
+  }, [busqueda, categorias]);
 
-  // --- LÓGICA DE CONTROLADORES (HANDLERS) ---
-
-  // 1. Cuando cambia ELECTRICIDAD (Nivel 1 - Padre Supremo)
-  const handleElectricidadChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.target.checked;
-    setCheckElectricidad(isChecked);
-    
-    // Cascada hacia abajo: Marcar/Desmarcar TODO
-    setCheckCables(isChecked);
-    setCheckCUC1(isChecked);
-    setCheckCUC2(isChecked);
-  };
-
-  // 2. Cuando cambia CABLES (Nivel 2 - Intermedio)
-  const handleCablesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.target.checked;
-    setCheckCables(isChecked);
-
-    if (isChecked) {
-      // Si se marca, activamos al padre y a todos los hijos
-      setCheckElectricidad(true);
-      setCheckCUC1(true);
-      setCheckCUC2(true);
-    } else {
-      // Si se desmarca, desmarcamos a los hijos
-      setCheckCUC1(false);
-      setCheckCUC2(false);
-      
-      // Opcional: ¿Debería desmarcarse Electricidad si Cables era el único marcado?
-      // Por ahora mantenemos la lógica simple: solo desmarca hijos.
-    }
-  };
-
-  // 3. Cuando cambia un CUC (Nivel 3 - Nieto)
-  // Esta función maneja la lógica individual y la propagación hacia arriba
-  const handleCUCChange = (setter: any, isChecked: boolean, otherSiblingState: boolean) => {
-    setter(isChecked);
-
-    if (isChecked) {
-      // Si marco uno, fuerzo a los padres a marcarse
-      setCheckCables(true);
-      setCheckElectricidad(true);
-    } else {
-      // Si desmarco este...
-      // Verificamos si el "hermano" también está desmarcado. 
-      // Si AMBOS están desmarcados, podríamos desmarcar "Cables".
-      if (!otherSiblingState) {
-         setCheckCables(false);
-         // Nota: Normalmente aquí también verificarías si hay otros hermanos de "Cables" 
-         // para desmarcar "Electricidad", pero con esta estructura simple, así funciona bien.
-      }
-    }
-  };
-
-  // Efecto opcional: Verificar consistencia (si todos los hijos se desmarcan manualmente, desmarcar padres)
-  useEffect(() => {
-    if (!checkCUC1 && !checkCUC2 && checkCables) {
-        setCheckCables(false);
-    }
-    // Si quisieras que Electricidad se apague cuando Cables se apaga:
-    // if (!checkCables && checkElectricidad) setCheckElectricidad(false); 
-  }, [checkCUC1, checkCUC2]);
-
+  const marcasFiltradas = useMemo(() => {
+    return marcas.filter((item) =>
+      item.toLowerCase().includes(busqueda.toLowerCase())
+    );
+  }, [busqueda, marcas]);
 
   return (
-    <div className={styles.contenido}>
-      <div className={styles.categorias}>
-        <h3>Categorías</h3>
-
-        <ul>
-          <li>
-            <span onClick={() => setOpenElectricidad(!openElectricidad)} style={{cursor: 'pointer', marginRight: '5px'}}>
-              {openElectricidad ? "▼" : "▶"}
-            </span>
-
-            <input
-              type="checkbox"
-              checked={checkElectricidad}
-              onChange={handleElectricidadChange}
-            />
-            <label>Electricidad</label>
-          </li>
-
-          {openElectricidad && (
-            <ul style={{ paddingLeft: "20px" }}>
-
-              <li>
-                <span onClick={() => setOpenCables(!openCables)} style={{cursor: 'pointer', marginRight: '5px'}}>
-                  {openCables ? "▼" : "▶"}
-                </span>
-
-                <input
-                  type="checkbox"
-                  checked={checkCables}
-                  onChange={handleCablesChange}
-                />
-                <label>Cables</label>
-              </li>
-
-              {openCables && (
-                <ul style={{ paddingLeft: "20px" }}>
-
-                  <li>
-                    <input
-                      type="checkbox"
-                      checked={checkCUC1}
-                      onChange={(e) =>
-                        handleCUCChange(setCheckCUC1, e.target.checked, checkCUC2)
-                      }
-                    />
-                    CUC 1
-                  </li>
-
-                  {/* NIVEL 3: CUC 2 */}
-                  <li>
-                    <input
-                      type="checkbox"
-                      checked={checkCUC2}
-                      onChange={(e) =>
-                        handleCUCChange(setCheckCUC2, e.target.checked, checkCUC1)
-                      }
-                    />
-                    CUC 2
-                  </li>
-                </ul>
-              )}
-
-            </ul>
-          )}
-        </ul>
-        <p>Mostrar más</p>
+    <aside className={styles.sidebar}>
+      <div className={styles.tabs}>
+        <button
+          type="button"
+          className={`${styles.tab} ${tabActiva === "categorias" ? styles.tabActiva : ""}`}
+          onClick={() => setTabActiva("categorias")}
+        >
+          Categorias
+        </button>
+        <button
+          type="button"
+          className={`${styles.tab} ${tabActiva === "marcas" ? styles.tabActiva : ""}`}
+          onClick={() => setTabActiva("marcas")}
+        >
+          Marcas
+        </button>
       </div>
-      {/* marcassssssssssssssssssss */}
-      <div className={styles.marcas}>
-        <h3>Categorías</h3>
 
-        <ul>
-          <li>
-            <span onClick={() => setOpenElectricidad(!openElectricidad)} style={{cursor: 'pointer', marginRight: '5px'}}>
-              {openElectricidad ? "▼" : "▶"}
-            </span>
-
-            <input
-              type="checkbox"
-              checked={checkElectricidad}
-              onChange={handleElectricidadChange}
-            />
-            <label>Electricidad</label>
-          </li>
-
-          {openElectricidad && (
-            <ul style={{ paddingLeft: "20px" }}>
-
-              <li>
-                <span onClick={() => setOpenCables(!openCables)} style={{cursor: 'pointer', marginRight: '5px'}}>
-                  {openCables ? "▼" : "▶"}
-                </span>
-
-                <input
-                  type="checkbox"
-                  checked={checkCables}
-                  onChange={handleCablesChange}
-                />
-                <label>Cables</label>
-              </li>
-
-              {openCables && (
-                <ul style={{ paddingLeft: "20px" }}>
-
-                  <li>
-                    <input
-                      type="checkbox"
-                      checked={checkCUC1}
-                      onChange={(e) =>
-                        handleCUCChange(setCheckCUC1, e.target.checked, checkCUC2)
-                      }
-                    />
-                    CUC 1
-                  </li>
-
-                  {/* NIVEL 3: CUC 2 */}
-                  <li>
-                    <input
-                      type="checkbox"
-                      checked={checkCUC2}
-                      onChange={(e) =>
-                        handleCUCChange(setCheckCUC2, e.target.checked, checkCUC1)
-                      }
-                    />
-                    CUC 2
-                  </li>
-                </ul>
-              )}
-
-            </ul>
-          )}
-        </ul>
-        <p>Mostrar más</p>
+      <div className={styles.searchBox}>
+        <span className={styles.searchIcon}>Q</span>
+        <input
+          type="text"
+          placeholder={tabActiva === "categorias" ? "Buscar Categoria" : "Buscar Marca"}
+          className={styles.searchInput}
+          value={busqueda}
+          onChange={(event) => setBusqueda(event.target.value)}
+        />
       </div>
-    </div>
+
+      {tabActiva === "categorias" ? (
+        <div className={styles.lista}>
+          <h3 className={styles.titulo}>Categorias</h3>
+          {categoriasFiltradas.map((categoria) => (
+            <button
+              key={categoria.id}
+              type="button"
+              className={`${styles.item} ${
+                categoriasSeleccionadas.includes(categoria.nombre) ? styles.itemActivo : ""
+              }`}
+              onClick={() => onCategoriaSeleccionada(categoria.nombre)}
+            >
+              <span>{categoria.nombre}</span>
+              <span>({categoria.total})</span>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className={styles.lista}>
+          <h3 className={styles.titulo}>Marcas</h3>
+          {marcasFiltradas.map((marca) => (
+            <button
+              key={marca}
+              type="button"
+              className={`${styles.item} ${
+                marcasSeleccionadas.includes(marca) ? styles.itemActivo : ""
+              }`}
+              onClick={() => onMarcaSeleccionada(marca)}
+            >
+              <span>{marca}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </aside>
   );
 }
