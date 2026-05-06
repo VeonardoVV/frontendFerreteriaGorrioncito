@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import styles from "./seccion_3.module.css";
 import type { CatalogProduct } from "../catalogData";
+import { QRCodeSVG } from "qrcode.react";
+<img src="/assets/img/yape.png" alt="QR Yape" />
 
 type Props = {
   productos: CatalogProduct[];
@@ -34,8 +36,12 @@ export default function Seccion_3({
 }: Props) {
   const STORAGE_KEY = "cartItems";
   const whatsappNumber = "51915144663";
+  const yapePhone = "51915144663";
+
   const [mostrarModalCompra, setMostrarModalCompra] = useState(false);
   const [productoSeleccionado, setProductoSeleccionado] = useState<CatalogProduct | null>(null);
+  // ✅ CORRECCIÓN: estado para controlar la vista del QR de Yape
+  const [mostrarQR, setMostrarQR] = useState(false);
 
   const productosFiltrados = useMemo(() => {
     return productos.filter((producto) => {
@@ -63,11 +69,13 @@ export default function Seccion_3({
   const abrirModalCompra = (producto: CatalogProduct) => {
     setProductoSeleccionado(producto);
     setMostrarModalCompra(true);
+    setMostrarQR(false); // resetear vista QR al abrir
   };
 
   const cerrarModalCompra = () => {
     setMostrarModalCompra(false);
     setProductoSeleccionado(null);
+    setMostrarQR(false);
   };
 
   const anadirAlCarrito = () => {
@@ -116,6 +124,44 @@ export default function Seccion_3({
       "noopener,noreferrer"
     );
   };
+
+  // ✅ CORRECCIÓN: función dentro del componente, con guard clause correcta
+ const renderYape = () => {
+  if (!productoSeleccionado) return null;
+
+  return (
+    <div className={styles.modalQR}>
+      <h3 className={styles.modalTitulo}>Pago con Yape</h3>
+
+      {/* 👇 TU IMAGEN DE YAPE */}
+      <img
+        src="/assets/img/yape.png"
+        alt="Yape QR"
+        className={styles.yapeImagen}
+      />
+
+      <p className={styles.modalTexto}>
+        Enviar pago a: <strong>Tu Nombre Aquí</strong>
+      </p>
+
+      <p className={styles.modalTexto}>
+        Producto: <strong>{productoSeleccionado.titulo}</strong>
+      </p>
+
+      <p className={styles.modalTexto}>
+        Precio: <strong>{productoSeleccionado.precio}</strong>
+      </p>
+
+      <button
+        type="button"
+        className={styles.modalBotonNaranja}
+        onClick={() => setMostrarQR(false)}
+      >
+        ← Volver
+      </button>
+    </div>
+  );
+};
 
   return (
     <>
@@ -229,38 +275,62 @@ export default function Seccion_3({
 
       {mostrarModalCompra && (
         <div className={styles.modalOverlay} onClick={cerrarModalCompra}>
-          <div className={styles.modalCompra} onClick={(event) => event.stopPropagation()}>
-            <h3 className={styles.modalTitulo}>Como deseas continuar?</h3>
-            <p className={styles.modalTexto}>
-              Elige una opcion para poder completar tu compra
-            </p>
+          <div
+            className={styles.modalCompra}
+            onClick={(event) => event.stopPropagation()}
+          >
+            {/* ✅ CORRECCIÓN: renderiza el QR o las opciones según el estado */}
+            {mostrarQR ? (
+              renderYape()
+            ) : (
+              <>
+                <h3 className={styles.modalTitulo}>Como deseas continuar?</h3>
+                <p className={styles.modalTexto}>
+                  Elige una opcion para poder completar tu compra
+                </p>
 
-            <button
-              type="button"
-              className={styles.modalBotonNaranja}
-              onClick={anadirAlCarrito}
-            >
-              <span className={styles.modalIcono}>
-                <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.modalSvg}>
-                  <path
-                    d="M7 6h14l-1.5 7.5H9L7 4H3"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <circle cx="10" cy="19" r="1.6" fill="currentColor" />
-                  <circle cx="18" cy="19" r="1.6" fill="currentColor" />
-                </svg>
-              </span>
-              <span>Anadir al carrito</span>
-            </button>
+                <button
+                  type="button"
+                  className={styles.modalBotonNaranja}
+                  onClick={anadirAlCarrito}
+                >
+                  <span className={styles.modalIcono}>
+                    <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.modalSvg}>
+                      <path
+                        d="M7 6h14l-1.5 7.5H9L7 4H3"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <circle cx="10" cy="19" r="1.6" fill="currentColor" />
+                      <circle cx="18" cy="19" r="1.6" fill="currentColor" />
+                    </svg>
+                  </span>
+                  <span>Anadir al carrito</span>
+                </button>
 
-            <button type="button" className={styles.modalBotonVerde} onClick={comprarPorWhatsapp}>
-              <span className={styles.modalIcono}>WA</span>
-              <span>Realizar la compra</span>
-            </button>
+                {/* ✅ CORRECCIÓN: llama setMostrarQR(true) correctamente */}
+                <button
+                  type="button"
+                  className={styles.modalBotonVerde}
+                  onClick={() => setMostrarQR(true)}
+                >
+                  <span className={styles.modalIcono}>YAPE</span>
+                  <span>Pagar con Yape</span>
+                </button>
+
+                <button
+                  type="button"
+                  className={styles.modalBotonVerde}
+                  onClick={comprarPorWhatsapp}
+                >
+                  <span className={styles.modalIcono}>WA</span>
+                  <span>Consultar por WhatsApp</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
